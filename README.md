@@ -18,4 +18,4 @@ This project demonstrates the implementation of the Saga pattern in a Spring Boo
 
 This project uses a choreography-based Saga pattern for distributed transactions across microservices.
 
-// ... (Add more details about the architecture, how to use the services, etc.)
+// ... more details to follow
