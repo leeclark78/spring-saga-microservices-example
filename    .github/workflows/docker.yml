@@ -1,0 +1,45 @@
+name: Docker Build and Push
+
+on:
+  push:
+    branches: [ main ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - uses: actions/checkout@v3
+    
+    - name: Set up QEMU
+      uses: docker/setup-qemu-action@v2
+    
+    - name: Set up Docker Buildx
+      uses: docker/setup-buildx-action@v2
+    
+    - name: Login to DockerHub
+      uses: docker/login-action@v2
+      with:
+        username: ${{ secrets.DOCKERHUB_USERNAME }}
+        password: ${{ secrets.DOCKERHUB_TOKEN }}
+    
+    - name: Build and push Order Service
+      uses: docker/build-push-action@v4
+      with:
+        context: ./order-service
+        push: true
+        tags: yourdockerhubusername/order-service:latest
+    
+    - name: Build and push Payment Service
+      uses: docker/build-push-action@v4
+      with:
+        context: ./payment-service
+        push: true
+        tags: yourdockerhubusername/payment-service:latest
+    
+    - name: Build and push Inventory Service
+      uses: docker/build-push-action@v4
+      with:
+        context: ./inventory-service
+        push: true
+        tags: yourdockerhubusername/inventory-service:latest
